@@ -3,8 +3,19 @@
 // 2. copy of current state
 
 function posts(state = [], action) {
-  console.log('The posts will change');
-  console.log(state, action);
-  return state;
+  switch(action.type) {
+    case 'INCREMENT_LIKES':
+      console.log('Incrementing likes!');
+      const i = action.index;
+      const newState = { ...state[i] };
+      newState.likes += 1;
+      return [
+        ...state.slice(0, i),
+        newState,
+        ...state.slice(i+1)
+      ];
+    default: return state;
+  }
 }
+
 export default posts;
